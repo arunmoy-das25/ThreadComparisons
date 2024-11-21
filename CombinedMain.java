@@ -5,10 +5,10 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Main {
-    public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
-        final int nThreads = 1000;
+public class CombinedMain {
+    private static long elapsedTime;
+    public static void count(int nThreads) {
+        long startTime = System.nanoTime();
         ExecutorService executorService = Executors.newFixedThreadPool(nThreads);
         List<Future<Long>> futures = new ArrayList<>();
         for(int i = 0; i < nThreads; i++){
@@ -29,9 +29,11 @@ public class Main {
         }
 
         executorService.shutdown();
-        long endTime = System.currentTimeMillis();
-        long elapsedTime = endTime - startTime;
+        long endTime = System.nanoTime();
+        elapsedTime = endTime - startTime;
+    }
 
-        System.out.println("Sum: " + sum + "\tElapsed Time:" + elapsedTime);
+    public long getElapsedTime(){
+        return elapsedTime;
     }
 }

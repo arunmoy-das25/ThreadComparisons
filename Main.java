@@ -1,7 +1,9 @@
-class Main {
-    public static void main(String[] args) {
-        final int numThreads = 1000;
-        final int range = 1_000_000;
+public class Main {
+
+    private static long elapsedTime;
+
+    public static void count(int numThreads, int range){
+        long startTime = System.nanoTime();
         Thread[] threads = new Thread[numThreads];
         long[] counts = new long[numThreads];
 
@@ -27,5 +29,11 @@ class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        long endTime = System.nanoTime();
+        elapsedTime = endTime - startTime;
+    }
+
+    public long getElapsedTime() {
+        return elapsedTime;
     }
 }
